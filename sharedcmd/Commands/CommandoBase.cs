@@ -35,7 +35,6 @@ namespace sharedcmd.Commands
             commands.Add(command);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCommands(IEnumerable<string> sequence)
         {
             if (sequence.Any())
