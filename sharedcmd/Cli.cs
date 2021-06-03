@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 
-using sharedcmd.Extensions;
 using sharedcmd.Runners.Arguments;
 using sharedcmd.Runners.Shells;
 

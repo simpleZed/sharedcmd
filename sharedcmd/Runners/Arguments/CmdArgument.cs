@@ -2,6 +2,9 @@
 {
     public class CmdArgument : ArgumentBase
     {
-        protected override string BuildFlag() => Flag is null ? null! : $"/{Flag}";
+        protected override string BuildFlag()
+        {
+            return Flag is null ? null! : $"/{Flag}";
+        }
     }
 }
