@@ -7,8 +7,7 @@ namespace sharedcmd.Commands
     {
         public CmdCommando(ShellBase<CmdArgument> runner) : base(runner)
         {
-            AddCommand("cmd");
-            AddCommand("/c");
+            AddCommands(new[] { "cmd", "/c" });
         }
     }
 }
