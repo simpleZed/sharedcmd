@@ -6,8 +6,8 @@ namespace sharedcmd.Playground
     {
         private static void Main()
         {
-            dynamic ps = new Powershell();
-            var ls = ps.ls;
+            dynamic ps = new Bash();
+            var ls = ps["ls"];
             Console.WriteLine(ls());
         }
     }
