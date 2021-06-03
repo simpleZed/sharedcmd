@@ -43,6 +43,14 @@ namespace sharedcmd.Commands
             }
         }
 
+        public void AddCommands(params string[] sequence)
+        {
+            if (sequence is string[] { Length: > 0})
+            {
+                commands.AddRange(sequence);
+            }
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
