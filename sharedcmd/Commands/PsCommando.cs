@@ -7,6 +7,7 @@ namespace sharedcmd.Commands
     {
         public PsCommando(ShellBase<PsArgument> shell) : base(shell)
         {
+            AddCommand("powershell");
         }
     }
 }
