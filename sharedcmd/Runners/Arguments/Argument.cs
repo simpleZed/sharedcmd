@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace sharedcmd.Runners.Arguments
 {
-    public abstract class ArgumentBase : IArgument, IEquatable<ArgumentBase?>
+    public class Argument : IArgument, IEquatable<Argument?>
     {
         public string? Flag { get; set; }
 
@@ -39,11 +39,11 @@ namespace sharedcmd.Runners.Arguments
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object? obj)
         {
-            return Equals(obj as ArgumentBase);
+            return Equals(obj as Argument);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(ArgumentBase? other)
+        public bool Equals(Argument? other)
         {
             return other != null &&
                    Flag == other.Flag &&
@@ -57,13 +57,13 @@ namespace sharedcmd.Runners.Arguments
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(ArgumentBase? left, ArgumentBase? right)
+        public static bool operator ==(Argument? left, Argument? right)
         {
-            return EqualityComparer<ArgumentBase>.Default.Equals(left!, right!);
+            return EqualityComparer<Argument>.Default.Equals(left!, right!);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(ArgumentBase? left, ArgumentBase? right)
+        public static bool operator !=(Argument? left, Argument? right)
         {
             return !(left == right);
         }
