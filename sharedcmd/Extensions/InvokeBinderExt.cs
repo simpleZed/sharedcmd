@@ -10,13 +10,14 @@ namespace sharedcmd.Extensions
 {
     public static class InvokeBinderExt
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> ParseArguments<T>(this InvokeBinder binder, object[] args)
             where T : Argument, new()
         {
             var (names, argsCount, namesCount) = binder.FetchInfo();
             var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);
-            return allNames.Zip(args, (f, v) => ArgumentFactory.Of<T>(v.ToString(), f))
-                           .OrderBy(a => a.Flag);
+            return allNames.Zip(args, (f, p) => ArgumentFactory.Of<T>(p.ToString(), f))
+                           .OrderBy(a => a.Prefix);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

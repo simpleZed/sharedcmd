@@ -2,14 +2,14 @@
 
 namespace sharedcmd.Runners
 {
-    internal static class ArgumentFactory
+    public static class ArgumentFactory
     {
-        internal static T Of<T>(string flag, object value) where T : Argument, new()
+        public static T Of<T>(string prefix, object flag) where T : Argument, new()
         {
             return new()
             {
-                Flag = flag,
-                ValueObject = value
+                Prefix = prefix,
+                Flag = flag is string f ? f : null!
             };
         }
     }

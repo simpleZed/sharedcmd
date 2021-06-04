@@ -6,29 +6,27 @@ namespace sharedcmd.Runners.Arguments
 {
     public class Argument : IArgument, IEquatable<Argument?>
     {
+        public string? Prefix { get; set; }
+
         public string? Flag { get; set; }
 
-        public object? ValueObject { get; set; }
-
-        public string? Value => ValueObject is string s ? Environment.ExpandEnvironmentVariables(s) : null!;
-
-        public virtual string BuildFlag()
+        public virtual string BuildPrefix()
         {
-            return Flag!;
+            return Prefix!;
         }
 
         public override string ToString()
         {
-            var flag = BuildFlag();
-            if (string.IsNullOrWhiteSpace(flag) && string.IsNullOrWhiteSpace(Value))
+            var prefix = BuildPrefix();
+            if (string.IsNullOrWhiteSpace(prefix) && string.IsNullOrWhiteSpace(Flag))
             {
                 return null!;
             }
-            if (string.IsNullOrWhiteSpace(flag))
+            if (string.IsNullOrWhiteSpace(prefix))
             {
-                return Value!;
+                return Flag!;
             }
-            return string.IsNullOrWhiteSpace(Value) ? flag! : flag + Value;
+            return string.IsNullOrWhiteSpace(Prefix) ? prefix! : prefix + Flag;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,14 +39,14 @@ namespace sharedcmd.Runners.Arguments
         public bool Equals(Argument? other)
         {
             return other != null &&
-                   Flag == other.Flag &&
-                   Value == other.Value;
+                   Prefix == other.Prefix &&
+                   Flag == other.Flag;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
-            return HashCode.Combine(Flag, Value);
+            return HashCode.Combine(Prefix, Flag);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
