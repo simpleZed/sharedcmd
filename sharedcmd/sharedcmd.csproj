@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<Authors>simpleRick</Authors>
 		<Description>Heavily inspired by the cmd C# library, you can use bash, powershell, cmd or write your own cli abstraction.</Description>
-		<Copyright>MIT license.</Copyright>
+		<Copyright>Creative Commons Zero v1.0 Universal</Copyright>
 		<PackageProjectUrl>https://github.com/simpleZed/sharedcmd#readme</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/simpleZed/sharedcmd</RepositoryUrl>
 		<RepositoryType>Public</RepositoryType>
