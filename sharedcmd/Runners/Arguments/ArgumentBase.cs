@@ -10,11 +10,7 @@ namespace sharedcmd.Runners.Arguments
 
         public object? ValueObject { get; set; }
 
-        public string? Value => ValueObject switch
-        {
-            string s => Environment.ExpandEnvironmentVariables(s),
-            _ => null!
-        };
+        public string? Value => ValueObject is string s ? Environment.ExpandEnvironmentVariables(s) : null!;
 
         protected virtual string BuildFlag()
         {
