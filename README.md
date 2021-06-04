@@ -105,7 +105,7 @@ posh.ls();
 
 **A shell let's you interact with your operating system through CLI or GUI.**
 
-> This class will execute the command on your cli class
+> This class will execute the command on your cli.
 
 3. Extends the Cli<T> abstract class.
 
