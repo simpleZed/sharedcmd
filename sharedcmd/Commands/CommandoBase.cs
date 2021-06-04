@@ -60,21 +60,20 @@ namespace sharedcmd.Commands
             return true;
         }
 
+        public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
+        {
+            AddCommands(indexes.OfType<string>());
+            result = this;
+            return true;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
             var parsedArguments = binder.ParseArguments<T>(args);
             arguments.AddRange(parsedArguments);
+            AddCommands(parsedArguments.Select(a => a.ToString()));
             result = shell.Run(new RunOptions(this));
-            return true;
-        }
-
-        public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
-        {
-            var args = indexes.OfType<string>()
-                              .Select(s => ArgumentFactory.Of<T>(null!, s));
-            arguments.AddRange(args);
-            result = this;
             return true;
         }
     }

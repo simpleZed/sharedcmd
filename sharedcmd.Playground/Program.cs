@@ -7,8 +7,8 @@ namespace sharedcmd.Playground
         private static void Main()
         {
             dynamic cmd = new Cmd();
-            var git = cmd.git;
-            Console.WriteLine(git());
+            var clone = cmd.git["log"]();
+            Console.WriteLine(clone);
         }
     }
 }
