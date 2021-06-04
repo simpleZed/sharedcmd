@@ -7,7 +7,7 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd
 {
-    public abstract class Cli<T> : DynamicObject where T : ArgumentBase, new()
+    public abstract class Cli<T> : DynamicObject where T : Argument, new()
     {
         private readonly ShellBase<T> shell;
 

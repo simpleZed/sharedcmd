@@ -12,28 +12,17 @@ namespace sharedcmd.Runners.Arguments
 
         public string? Value => ValueObject is string s ? Environment.ExpandEnvironmentVariables(s) : null!;
 
-        protected virtual string BuildFlag()
-        {
-            if (Flag is null)
-            {
-                return null!;
-            }
-            var prefix = Flag.Length is 1 ? "-" : "--";
-            return prefix + Flag;
-        }
-
         public override string ToString()
         {
-            var flag = BuildFlag();
-            if (string.IsNullOrWhiteSpace(flag) && string.IsNullOrWhiteSpace(Value))
+            if (string.IsNullOrWhiteSpace(Flag) && string.IsNullOrWhiteSpace(Value))
             {
                 return null!;
             }
-            if (string.IsNullOrWhiteSpace(flag))
+            if (string.IsNullOrWhiteSpace(Flag))
             {
                 return Value!;
             }
-            return string.IsNullOrWhiteSpace(Value) ? flag : $"{flag} {Value}";
+            return string.IsNullOrWhiteSpace(Value) ? Flag! : Flag + Value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
