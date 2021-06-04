@@ -9,7 +9,7 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Commands
 {
-    public abstract class CommandoBase<T> : DynamicObject, ICommando where T : ArgumentBase, new()
+    public abstract class CommandoBase<T> : DynamicObject, ICommando where T : Argument, new()
     {
         protected readonly List<string> commands = new();
 
@@ -64,7 +64,7 @@ namespace sharedcmd.Commands
         {
             var (names, argsCount, namesCount) = FetchInfo(binder);
             var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);
-            arguments.AddRange(allNames.Zip(args, (s, o) => ArgumentFactory.Of<T>(s, o)));
+            arguments.AddRange(allNames.Zip(args, (v, f) => ArgumentFactory.Of<T>(f.ToString(), v)));
             result = shell.Run(new RunOptions(this));
             return true;
         }
