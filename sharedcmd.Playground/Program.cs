@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace sharedcmd.Playground
+using sharedcmd;
+
+dynamic cmd = new Cmd();
+var env = new (string, string)[]
 {
-    internal static class Program
-    {
-        private static void Main()
-        {
-            dynamic cmd = new Cmd();
-            cmd._Env(("VARIABLE", "Hello\n"));
-            var result = cmd["SET VARIABLE"]();
-            Console.WriteLine(result);
-        }
-    }
-}
+  ("jow", @"C:\"),
+  ("Hello", "B")
+};
+cmd._Env(env);
+var setA = cmd["SET jow"]();
+var setPath = cmd["SET Hello"]();
+Console.WriteLine(setA);
+Console.WriteLine(setPath);
