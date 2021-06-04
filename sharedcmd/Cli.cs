@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 
+using sharedcmd.Extensions;
 using sharedcmd.Runners.Arguments;
 using sharedcmd.Runners.Shells;
 
@@ -43,10 +45,17 @@ namespace sharedcmd
                 {
                     return false;
                 }
-                var environmentVariables = args.OfType<(string key, string value)>()
-                                               .ToDictionary(p => p.key, p => p.value);
-
-                shell.EnvironmentVariables = environmentVariables ?? shell.EnvironmentVariables;
+                shell.EnvironmentVariables = args[0] switch
+                {
+                    IEnumerable<(string, string)> sequence => sequence.Select(a => a)
+                                                                      .ToDictionary(t => t.Item1, t => t.Item2),
+                    ValueTuple<string, string> tuple => args.OfType<(string, string)>()
+                                                            .ToDictionary(t => t.Item1, t => t.Item2),
+                    Tuple<string, string> tuple => args.OfType<(string, string)>()
+                                                       .ToDictionary(t => t.Item1, t => t.Item2),
+                    Dictionary<string, string> dictionary => dictionary,
+                    _ => new()
+                };
                 return true;
             }
             return false;
