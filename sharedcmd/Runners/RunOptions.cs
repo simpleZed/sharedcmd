@@ -12,7 +12,6 @@ namespace sharedcmd.Runners
 
         public string? Arguments { get; set; }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RunOptions(ICommando commando)
         {
             Command = commando.Command;

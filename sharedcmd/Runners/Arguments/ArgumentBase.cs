@@ -13,7 +13,7 @@ namespace sharedcmd.Runners.Arguments
         public string? Value => ValueObject switch
         {
             string s => Environment.ExpandEnvironmentVariables(s),
-            _ => throw new InvalidOperationException("Value must be a string."),
+            _ => null!
         };
 
         protected virtual string BuildFlag()
