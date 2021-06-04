@@ -37,14 +37,15 @@ namespace sharedcmd
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             result = null!;
-            var environmentVariables = args.OfType<(string key, string value)>()
-                                           .ToDictionary(p => p.key, p => p.value);
             if (binder.Name is "_Env")
             {
                 if (args.Length is not 1)
                 {
                     return false;
                 }
+                var environmentVariables = args.OfType<(string key, string value)>()
+                                               .ToDictionary(p => p.key, p => p.value);
+
                 shell.EnvironmentVariables = environmentVariables ?? shell.EnvironmentVariables;
                 return true;
             }
