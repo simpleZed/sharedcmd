@@ -12,7 +12,7 @@ namespace sharedcmd.Runners.Arguments
 
         public virtual string BuildPrefix()
         {
-            return Environment.ExpandEnvironmentVariables(Prefix!);
+            return Prefix is string s ? Environment.ExpandEnvironmentVariables(s) ?? s! : Prefix!;
         }
 
         public override string ToString()

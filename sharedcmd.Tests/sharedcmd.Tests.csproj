@@ -17,8 +17,4 @@
     <ProjectReference Include="..\sharedcmd\sharedcmd.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Runners\" />
-  </ItemGroup>
-
 </Project>

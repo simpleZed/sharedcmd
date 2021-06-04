@@ -7,8 +7,9 @@ namespace sharedcmd.Playground
         private static void Main()
         {
             dynamic cmd = new Cmd();
-            var clone = cmd.git["log"]();
-            Console.WriteLine(clone);
+            cmd._Env(("VARIABLE", "Hello\n"));
+            var result = cmd["SET VARIABLE"]();
+            Console.WriteLine(result);
         }
     }
 }
