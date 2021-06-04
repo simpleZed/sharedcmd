@@ -2,8 +2,8 @@
 {
     public interface IArgument
     {
-        string? Flag { get; }
+        string? Prefix { get; }
 
-        string? Value { get; }
+        string? Flag { get; }
     }
 }
