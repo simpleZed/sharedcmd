@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace sharedcmd.Extensions
 {
-    internal static class ProcessExtensions
+    internal static class ProcessExt
     {
         internal static void PopulateEnvironment(this Process process, IDictionary<string, string> environmentVariables)
         {
