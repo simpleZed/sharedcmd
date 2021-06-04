@@ -6,9 +6,9 @@ namespace sharedcmd.Playground
     {
         private static void Main()
         {
-            dynamic ps = new Bash();
-            var ls = ps["ls"];
-            Console.WriteLine(ls());
+            dynamic cmd = new Cmd();
+            var git = cmd.git;
+            Console.WriteLine(git());
         }
     }
 }

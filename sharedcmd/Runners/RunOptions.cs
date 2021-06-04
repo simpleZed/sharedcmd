@@ -6,7 +6,7 @@ using sharedcmd.Commands;
 
 namespace sharedcmd.Runners
 {
-    public sealed class RunOptions : IRunOptions, IEquatable<RunOptions?>
+    public class RunOptions : IRunOptions, IEquatable<RunOptions?>
     {
         public string? Command { get; set; }
 

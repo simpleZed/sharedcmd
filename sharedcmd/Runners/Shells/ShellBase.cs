@@ -9,7 +9,7 @@ namespace sharedcmd.Runners.Shells
 {
     public abstract class ShellBase<T> : IRunner, ICommander<T> where T : ArgumentBase, new()
     {
-        public IDictionary<string, string>? EnvironmentVariables { get; set; }
+        public virtual IDictionary<string, string>? EnvironmentVariables { get; set; }
 
         protected ShellBase()
         {

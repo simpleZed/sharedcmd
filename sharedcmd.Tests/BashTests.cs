@@ -10,41 +10,41 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Tests
 {
-    public sealed partial class CmdTests
+    public sealed partial class BashTests
     {
-        private dynamic cmd;
+        private dynamic bash;
 
-        private CmdShell shell;
+        private BashShell shell;
 
         [SetUp]
         public void Setup()
         {
-            shell = A.Fake<CmdShell>();
+            shell = A.Fake<BashShell>();
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
-            cmd = new Cmd(shell);
+             .Returns(new BashCommando(shell));
+            bash = new Bash(shell);
         }
 
         [Test]
         public void ShouldGetCommandoWhenAccessingMember()
         {
-            var commando = cmd.git;
+            var commando = bash.git;
             Assert.NotNull(commando);
-            Assert.IsInstanceOf<CmdCommando>(commando);
+            Assert.IsInstanceOf<BashCommando>(commando);
         }
 
         [Test]
         public void ShouldGetCommandoWhenIndexingMember()
         {
-            var commando = cmd["git"];
+            var commando = bash["git"];
             Assert.NotNull(commando);
-            Assert.IsInstanceOf<CmdCommando>(commando);
+            Assert.IsInstanceOf<BashCommando>(commando);
         }
 
         [Test]
         public void ShouldCreateCommandWithRunnerWhenInvokingMember()
         {
-            cmd.git();
+            bash.git();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .MustHaveHappenedOnceExactly();
         }
@@ -52,7 +52,7 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldCreateCommandWithRunnerWhenInvokingIndex()
         {
-            cmd["git"]();
+            bash["git"]();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .MustHaveHappenedOnceExactly();
         }
@@ -61,53 +61,53 @@ namespace sharedcmd.Tests
         public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            dynamic ls = cmd.ls;
+            dynamic ls = bash.ls;
             Assert.NotNull(ls);
-            Assert.IsInstanceOf<CmdCommando>(ls);
+            Assert.IsInstanceOf<BashCommando>(ls);
 
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            dynamic dir = cmd.dir;
+            dynamic dir = bash.dir;
             Assert.NotNull(dir);
-            Assert.IsInstanceOf<CmdCommando>(dir);
+            Assert.IsInstanceOf<BashCommando>(dir);
         }
 
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmdIndex()
         {
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            dynamic ls = cmd["git"];
+            dynamic ls = bash["git"];
             Assert.NotNull(ls);
-            Assert.IsInstanceOf<CmdCommando>(ls);
+            Assert.IsInstanceOf<BashCommando>(ls);
 
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            dynamic dir = cmd["dir"];
+            dynamic dir = bash["dir"];
             Assert.NotNull(dir);
-            Assert.IsInstanceOf<CmdCommando>(dir);
+            Assert.IsInstanceOf<BashCommando>(dir);
         }
 
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            cmd.git();
-            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c git")))
+            bash.ls();
+            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "-c ls")))
              .MustHaveHappenedOnceExactly();
 
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            cmd.dir();
-            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c dir")))
+            bash.dir();
+            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "-c dir")))
              .MustHaveHappenedOnceExactly();
         }
 
@@ -115,17 +115,17 @@ namespace sharedcmd.Tests
         public void ShouldBeAbleToRunMultipleCommandsOnCmdIndex()
         {
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            cmd["git"]();
-            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c git")))
+            bash["ls"]();
+            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "-c ls")))
              .MustHaveHappenedOnceExactly();
 
             A.CallTo(() => shell.GiveOrder())
-             .Returns(new CmdCommando(shell));
+             .Returns(new BashCommando(shell));
 
-            cmd["dir"]();
-            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c dir")))
+            bash["dir"]();
+            A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "-c dir")))
              .MustHaveHappenedOnceExactly();
         }
 
@@ -136,7 +136,7 @@ namespace sharedcmd.Tests
             {
                 ["PATH"] = @"C:\"
             };
-            cmd._Env(environmentVariables);
+            bash._Env(environmentVariables);
             A.CallToSet(() => shell.EnvironmentVariables)
              .MustHaveHappened();
 
@@ -154,8 +154,8 @@ namespace sharedcmd.Tests
                 ["PATH"] = @"C:\"
             };
             Dictionary<string, string> emptyVars = new();
-            cmd._Env(environmentVariables);
-            cmd._Env(emptyVars);
+            bash._Env(environmentVariables);
+            bash._Env(emptyVars);
             A.CallToSet(() => shell.EnvironmentVariables)
              .MustHaveHappened();
             Assert.NotNull(shell.EnvironmentVariables);
