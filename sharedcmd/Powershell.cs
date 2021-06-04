@@ -3,9 +3,9 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd
 {
-    public class Powershell : Cli<PsArgument>
+    public class Powershell : Cli<Argument>
     {
-        public Powershell(ShellBase<PsArgument> shell = null!) : base(shell ?? new PsShell())
+        public Powershell(ShellBase<Argument> shell = null!) : base(shell ?? new PsShell())
         {
         }
     }

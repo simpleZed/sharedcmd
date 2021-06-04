@@ -3,7 +3,7 @@ using sharedcmd.Runners.Arguments;
 
 namespace sharedcmd.Runners.Shells
 {
-    public class CmdShell : ShellBase<CmdArgument>
+    public class CmdShell : ShellBase<Argument>
     {
         public override ICommando GiveOrder()
         {

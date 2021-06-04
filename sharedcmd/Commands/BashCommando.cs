@@ -3,9 +3,9 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Commands
 {
-    public class BashCommando : CommandoBase<BashArgument>
+    public class BashCommando : CommandoBase<Argument>
     {
-        public BashCommando(ShellBase<BashArgument> shell) : base(shell)
+        public BashCommando(ShellBase<Argument> shell) : base(shell)
         {
             AddCommands("bash", "-c");
         }

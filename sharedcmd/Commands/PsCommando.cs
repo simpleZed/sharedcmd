@@ -3,9 +3,9 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Commands
 {
-    public class PsCommando : CommandoBase<PsArgument>
+    public class PsCommando : CommandoBase<Argument>
     {
-        public PsCommando(ShellBase<PsArgument> shell) : base(shell)
+        public PsCommando(ShellBase<Argument> shell) : base(shell)
         {
             AddCommand("powershell");
         }
