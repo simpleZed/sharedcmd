@@ -72,7 +72,6 @@ namespace sharedcmd.Commands
         {
             var parsedArguments = binder.ParseArguments<T>(args);
             arguments.AddRange(parsedArguments);
-            AddCommands(parsedArguments.Select(a => a.ToString()));
             result = shell.Run(new RunOptions(this));
             return true;
         }

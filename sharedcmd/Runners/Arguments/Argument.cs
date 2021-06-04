@@ -26,7 +26,7 @@ namespace sharedcmd.Runners.Arguments
             {
                 return Flag!;
             }
-            return string.IsNullOrWhiteSpace(Prefix) ? prefix! : prefix + Flag;
+            return string.IsNullOrWhiteSpace(Flag) ? prefix! : prefix + Flag;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
