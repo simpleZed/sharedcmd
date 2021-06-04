@@ -3,9 +3,9 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd
 {
-    public class Bash : Cli<BashArgument>
+    public class Bash : Cli<Argument>
     {
-        public Bash(ShellBase<BashArgument> shell = null!) : base(shell ?? new BashShell())
+        public Bash(ShellBase<Argument> shell = null!) : base(shell ?? new BashShell())
         {
         }
     }
