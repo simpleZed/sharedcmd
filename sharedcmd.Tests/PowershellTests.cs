@@ -132,11 +132,7 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToSetEnvironmentVariablesOnCmd()
         {
-            var environmentVariables = new Dictionary<string, string>()
-            {
-                ["PATH"] = @"C:\"
-            };
-            ps._Env(environmentVariables);
+            ps._Env(("PATH", @"C:\"));
             A.CallToSet(() => shell.EnvironmentVariables)
              .MustHaveHappened();
 
