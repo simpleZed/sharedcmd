@@ -4,12 +4,21 @@ using System.Runtime.CompilerServices;
 
 namespace sharedcmd.Runners.Arguments
 {
-    public class Argument : IArgument, IEquatable<Argument?>
+    /// <summary>
+    /// Represents a class that knows how to parse command options.
+    /// </summary>
+    public class CommandOption : ICommandOption, IEquatable<CommandOption?>
     {
         public string? Prefix { get; set; }
 
         public string? Flag { get; set; }
 
+        /// <summary>
+        /// Applies some necessary transformation to the command prefix or command value.
+        /// </summary>
+        /// <returns>
+        /// The command prefix/value.
+        /// </returns>
         public virtual string BuildPrefix()
         {
             return Prefix is string s ? Environment.ExpandEnvironmentVariables(s) ?? s! : Prefix!;
@@ -32,11 +41,11 @@ namespace sharedcmd.Runners.Arguments
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object? obj)
         {
-            return Equals(obj as Argument);
+            return Equals(obj as CommandOption);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Argument? other)
+        public bool Equals(CommandOption? other)
         {
             return other != null &&
                    Prefix == other.Prefix &&
@@ -50,13 +59,13 @@ namespace sharedcmd.Runners.Arguments
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Argument? left, Argument? right)
+        public static bool operator ==(CommandOption? left, CommandOption? right)
         {
-            return EqualityComparer<Argument>.Default.Equals(left!, right!);
+            return EqualityComparer<CommandOption>.Default.Equals(left!, right!);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Argument? left, Argument? right)
+        public static bool operator !=(CommandOption? left, CommandOption? right)
         {
             return !(left == right);
         }

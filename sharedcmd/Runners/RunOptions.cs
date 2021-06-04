@@ -6,12 +6,21 @@ using sharedcmd.Commands;
 
 namespace sharedcmd.Runners
 {
+    /// <summary>
+    /// Options to use when processing a command.
+    /// </summary>
     public class RunOptions : IRunOptions, IEquatable<RunOptions?>
     {
         public string? Command { get; set; }
 
         public string? Arguments { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="RunOptions"/>
+        /// </summary>
+        /// <param name="commando">
+        /// The command to parse the options from.
+        /// </param>
         public RunOptions(ICommando commando)
         {
             Command = commando.Command;

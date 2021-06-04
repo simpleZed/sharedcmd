@@ -3,7 +3,10 @@ using sharedcmd.Runners.Arguments;
 
 namespace sharedcmd.Runners.Shells
 {
-    public class PsShell : ShellBase<Argument>
+    /// <summary>
+    /// Represents a class that can execute commands on a powershell.
+    /// </summary>
+    public class PsShell : ShellBase<CommandOption>
     {
         public override ICommando GiveOrder()
         {

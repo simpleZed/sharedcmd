@@ -10,7 +10,13 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Commands
 {
-    public abstract class CommandoBase<T> : DynamicObject, ICommando where T : Argument, new()
+    /// <summary>
+    /// Base class of all commands.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of argument parser to use.
+    /// </typeparam>
+    public abstract class CommandoBase<T> : DynamicObject, ICommando where T : CommandOption, new()
     {
         protected readonly List<string> commands = new();
 

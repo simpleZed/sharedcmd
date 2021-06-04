@@ -3,9 +3,18 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd
 {
-    public class Cmd : Cli<Argument>
+    /// <summary>
+    /// A smart class that can execute commands on command prompt on windows (cmd.exe)
+    /// </summary>
+    public class Cmd : CliBase<CommandOption>
     {
-        public Cmd(ShellBase<Argument> shell = null!) : base(shell ?? new CmdShell())
+        /// <summary>
+        /// Creates a new instance of <see cref="Cmd"/> class.
+        /// </summary>
+        /// <param name="shell">
+        /// The shell that will execute the cmd commands.
+        /// </param>
+        public Cmd(ShellBase<CommandOption> shell = null!) : base(shell ?? new CmdShell())
         {
         }
     }

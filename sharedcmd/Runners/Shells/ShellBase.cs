@@ -7,7 +7,13 @@ using sharedcmd.Runners.Arguments;
 
 namespace sharedcmd.Runners.Shells
 {
-    public abstract class ShellBase<T> : IRunner, ICommander<T> where T : Argument, new()
+    /// <summary>
+    /// Base class of all Shell classes.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of argument parser to use when using a given shell.
+    /// </typeparam>
+    public abstract class ShellBase<T> : IRunner, ICommander<T> where T : CommandOption, new()
     {
         public virtual IDictionary<string, string>? EnvironmentVariables { get; set; }
 

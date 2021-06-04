@@ -12,7 +12,7 @@ namespace sharedcmd.Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> ParseArguments<T>(this InvokeBinder binder, object[] args)
-            where T : Argument, new()
+            where T : CommandOption, new()
         {
             var (names, argsCount, namesCount) = binder.FetchInfo();
             var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);

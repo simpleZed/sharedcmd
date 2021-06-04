@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 
-using sharedcmd.Extensions;
 using sharedcmd.Runners.Arguments;
 using sharedcmd.Runners.Shells;
 
 namespace sharedcmd
 {
-    public abstract class Cli<T> : DynamicObject where T : Argument, new()
+    /// <summary>
+    /// Base class of all cli classes.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of argument that the cli understand.
+    /// </typeparam>
+    public abstract class CliBase<T> : DynamicObject where T : CommandOption, new()
     {
         private readonly ShellBase<T> shell;
 
-        protected Cli(ShellBase<T> shell)
+        /// <summary>
+        /// Creates a new instance of <see cref="CliBase{T}"/>
+        /// </summary>
+        /// <param name="shell">
+        /// The shell that will execute the commands.
+        /// </param>
+        protected CliBase(ShellBase<T> shell)
         {
             this.shell = shell;
         }

@@ -10,49 +10,49 @@ namespace sharedcmd.Tests.Runners.Arguments
         [Test]
         public void ShouldPrefixAGivenFlagWithASingleHiphen()
         {
-            var argument = ArgumentFactory.Of<Argument>("-", "f");
+            var argument = ArgumentFactory.Of<CommandOption>("-", "f");
             Assert.AreEqual("-f", argument.ToString());
         }
 
         [Test]
         public void ShouldPrefixAGivenFlagWithADoubleHiphen()
         {
-            var argument = ArgumentFactory.Of<Argument>("--", "f1");
+            var argument = ArgumentFactory.Of<CommandOption>("--", "f1");
             Assert.AreEqual("--f1", argument.ToString());
         }
 
         [Test]
         public void ShouldPrefixAGivenFlagWithAnySymbol()
         {
-            var argument = ArgumentFactory.Of<Argument>("@", "f1");
+            var argument = ArgumentFactory.Of<CommandOption>("@", "f1");
             Assert.AreEqual("@f1", argument.ToString());
         }
 
         [Test]
         public void ShouldOnlyUseFlagAsValueIfNoPrefixSpecifiedForArgument()
         {
-            var argument = ArgumentFactory.Of<Argument>(null!, "value");
+            var argument = ArgumentFactory.Of<CommandOption>(null!, "value");
             Assert.AreEqual("value", argument.ToString());
         }
 
         [Test(Description = "This is not part of a normal flow, since it won't execute any command")]
         public void ShouldIgnoreFlagIfItsNotString()
         {
-            var argument = ArgumentFactory.Of<Argument>("--", true);
+            var argument = ArgumentFactory.Of<CommandOption>("--", true);
             Assert.AreEqual("--", argument.ToString());
         }
 
         [Test(Description = "This is not part of a normal flow, since it won't execute any command")]
         public void ShouldBeNullIfPrefixAndFlagAreNull()
         {
-            var argument = ArgumentFactory.Of<Argument>(null!, null!);
+            var argument = ArgumentFactory.Of<CommandOption>(null!, null!);
             Assert.Null(argument.ToString());
         }
 
         [Test(Description = "This is not part of a normal flow, since it won't execute any command")]
         public void ShouldBeNullIfPrefixIsNullAndFlagIsNotString()
         {
-            var argument = ArgumentFactory.Of<Argument>(null!, true);
+            var argument = ArgumentFactory.Of<CommandOption>(null!, true);
             Assert.Null(argument.ToString());
         }
     }

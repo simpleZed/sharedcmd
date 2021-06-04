@@ -3,9 +3,18 @@ using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Commands
 {
-    public class CmdCommando : CommandoBase<Argument>
+    /// <summary>
+    /// Represents a class that represents a cmd command.
+    /// </summary>
+    public class CmdCommando : CommandoBase<CommandOption>
     {
-        public CmdCommando(ShellBase<Argument> runner) : base(runner)
+        /// <summary>
+        /// Creates a new instance of <see cref="CmdCommando"/>.
+        /// </summary>
+        /// <param name="shell">
+        /// The shell that will execute this command.
+        /// </param>
+        public CmdCommando(ShellBase<CommandOption> shell) : base(shell)
         {
             AddCommands("cmd", "/c");
         }
