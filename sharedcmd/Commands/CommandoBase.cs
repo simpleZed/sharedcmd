@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
+using sharedcmd.Extensions;
 using sharedcmd.Runners;
 using sharedcmd.Runners.Arguments;
 using sharedcmd.Runners.Shells;
@@ -62,18 +63,19 @@ namespace sharedcmd.Commands
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
-            var (names, argsCount, namesCount) = FetchInfo(binder);
-            var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);
-            arguments.AddRange(allNames.Zip(args, (v, f) => ArgumentFactory.Of<T>(f.ToString(), v)));
+            var parsedArguments = binder.ParseArguments<T>(args);
+            arguments.AddRange(parsedArguments);
             result = shell.Run(new RunOptions(this));
             return true;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private (IReadOnlyCollection<string> names, int argsCount, int namesCount) FetchInfo(InvokeBinder binder)
+        public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
-            var (names, count) = (binder.CallInfo.ArgumentNames, binder.CallInfo.ArgumentCount);
-            return (names, count, names.Count);
+            var args = indexes.OfType<string>()
+                              .Select(s => ArgumentFactory.Of<T>(null!, s));
+            arguments.AddRange(args);
+            result = this;
+            return true;
         }
     }
 }
