@@ -1,1 +1,1 @@
-﻿
+﻿global::System.Console.WriteLine();
