@@ -21,21 +21,19 @@ namespace sharedcmd.Runners.Arguments
         /// </returns>
         public virtual string BuildPrefix()
         {
-            return Prefix is string s ? Environment.ExpandEnvironmentVariables(s) ?? s! : Prefix!;
+            return Prefix is string s ? Environment.ExpandEnvironmentVariables(s) : Prefix!;
         }
 
         public override string ToString()
         {
             var prefix = BuildPrefix();
-            if (string.IsNullOrWhiteSpace(prefix) && string.IsNullOrWhiteSpace(Flag))
+            return (prefix, Flag) switch 
             {
-                return null!;
-            }
-            if (string.IsNullOrWhiteSpace(prefix))
-            {
-                return Flag!;
-            }
-            return string.IsNullOrWhiteSpace(Flag) ? prefix! : prefix + Flag;
+                (null, null) => null!,
+                (var x, var y) => x + y,
+                (var x, null) => x,
+                (null, var y) => y
+            };
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
