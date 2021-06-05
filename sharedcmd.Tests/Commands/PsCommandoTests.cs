@@ -25,7 +25,7 @@ namespace sharedcmd.Tests.Commands
         public void SetUp()
         {
             shell = A.Fake<PsShell>();
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
             powershell = new Powershell(shell);
         }

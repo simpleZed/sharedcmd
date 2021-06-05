@@ -29,6 +29,6 @@ namespace sharedcmd.Runners
         /// <returns>
         /// The command to be stored and executed.
         /// </returns>
-        ICommando FindCommand();
+        ICommando GenerateCommand();
     }
 }

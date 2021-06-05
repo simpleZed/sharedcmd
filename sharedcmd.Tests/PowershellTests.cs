@@ -20,7 +20,7 @@ namespace sharedcmd.Tests
         public void Setup()
         {
             shell = A.Fake<PsShell>();
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
             ps = new Powershell(shell);
         }
@@ -60,14 +60,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             dynamic ls = ps.ls;
             Assert.NotNull(ls);
             Assert.IsInstanceOf<PsCommando>(ls);
 
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             dynamic dir = ps.dir;
@@ -78,14 +78,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmdIndex()
         {
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             dynamic ls = ps["git"];
             Assert.NotNull(ls);
             Assert.IsInstanceOf<PsCommando>(ls);
 
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             dynamic dir = ps["dir"];
@@ -96,14 +96,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             ps.ls();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "ls")))
              .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             ps.dir();
@@ -114,14 +114,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmdIndex()
         {
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             ps["ls"]();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "ls")))
              .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new PsCommando(shell));
 
             ps["dir"]();

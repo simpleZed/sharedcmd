@@ -28,7 +28,7 @@ namespace sharedcmd.Runners.Shells
             return option.ToString();
         }
 
-        public abstract ICommando FindCommand();
+        public abstract ICommando GenerateCommand();
 
         public virtual string Run(IRunOptions options)
         {
