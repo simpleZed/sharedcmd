@@ -11,7 +11,7 @@ namespace sharedcmd.Extensions
     public static class InvokeBinderExt
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> ParseArguments<T>(this InvokeBinder binder, object[] args)
+        public static IEnumerable<T> ParseOptions<T>(this InvokeBinder binder, object[] args)
             where T : CommandOption, new()
         {
             var (names, argsCount, namesCount) = binder.FetchInfo();

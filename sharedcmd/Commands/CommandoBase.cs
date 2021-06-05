@@ -73,7 +73,7 @@ namespace sharedcmd.Commands
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
-            var parsedArguments = binder.ParseArguments<T>(args);
+            var parsedArguments = binder.ParseOptions<T>(args);
             AddCommands(parsedArguments.Select(a => a.ToString()));
             result = shell.Run(new RunOptions(this));
             return true;
