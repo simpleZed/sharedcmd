@@ -19,7 +19,7 @@ namespace sharedcmd.Tests.Commands
         public void SetUp()
         {
             shell = A.Fake<CmdShell>();
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
             cmd = new Cmd(shell);
         }
@@ -111,7 +111,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git(help: "--");
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -131,7 +131,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git["--help"]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -151,7 +151,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git.log["--grep"]("test");
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -171,7 +171,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git.log["--grep"]["test"]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -191,7 +191,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git.log["--grep", "test"]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -211,7 +211,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
             cmd.git.log("test", grep: "--");
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
 
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
@@ -231,7 +231,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "https://github.com/manojlds/cmd";
             IRunOptions expectedRunOptions = null;
             cmd.git.clone(Argument);
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .WhenArgumentsMatch(a =>
@@ -251,7 +251,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "https://github.com/manojlds/cmd";
             IRunOptions expectedRunOptions = null;
             cmd.git.clone[Argument]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .WhenArgumentsMatch(a =>
@@ -271,7 +271,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "https://github.com/manojlds/cmd";
             IRunOptions expectedRunOptions = null;
             cmd.git["clone"][Argument]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .WhenArgumentsMatch(a =>
@@ -291,7 +291,7 @@ namespace sharedcmd.Tests.Commands
             const string Argument = "https://github.com/manojlds/cmd";
             IRunOptions expectedRunOptions = null;
             cmd.git["clone", Argument]();
-            A.CallTo(() => shell.BuildArgument(An<CommandOption>.That.IsNotNull()))
+            A.CallTo(() => shell.BuildOption(An<CommandOption>.That.IsNotNull()))
              .Returns(Argument);
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .WhenArgumentsMatch(a =>

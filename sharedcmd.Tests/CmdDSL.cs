@@ -19,7 +19,7 @@ namespace sharedcmd.Tests
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .Returns("result");
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
             cmd = new Cmd(shell);
         }

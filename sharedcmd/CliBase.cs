@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+using sharedcmd.Commands;
+using sharedcmd.Extensions;
 using sharedcmd.Runners.Options;
 using sharedcmd.Runners.Shells;
 
@@ -31,45 +34,55 @@ namespace sharedcmd
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            var commando = shell.GiveOrder();
-            commando.AddCommand(binder.Name);
-            result = commando;
+            result = AddCommand(binder.Name);
             return true;
         }
 
         public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
-            var commando = shell.GiveOrder();
             var commands = indexes.OfType<string>()
                                   .Where(s => !string.IsNullOrWhiteSpace(s));
-            commando.AddCommands(commands);
-            result = commando;
+            result = AddCommands(commands);
             return true;
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             result = null!;
-            if (binder.Name is "_Env")
+            if (binder.Name is "_Env" && args.Length is 1)
             {
-                if (args.Length is not 1)
-                {
-                    return false;
-                }
-                shell.EnvironmentVariables = args[0] switch
-                {
-                    IEnumerable<(string, string)> sequence => sequence.Select(a => a)
-                                                                      .ToDictionary(t => t.Item1, t => t.Item2),
-                    ValueTuple<string, string> tuple => args.OfType<(string, string)>()
-                                                            .ToDictionary(t => t.Item1, t => t.Item2),
-                    Tuple<string, string> tuple => args.OfType<(string, string)>()
-                                                       .ToDictionary(t => t.Item1, t => t.Item2),
-                    Dictionary<string, string> dictionary => dictionary,
-                    _ => new()
-                };
+                shell.EnvironmentVariables = ToEnvVariable(args);
                 return true;
             }
             return false;
+        }
+
+        private Dictionary<string, string> ToEnvVariable(object[] args)
+        {
+            return args[0] switch
+            {
+                IEnumerable<(string, string)> sequence => sequence.ToDictionary(t => t.Item1, t => t.Item2),
+                ValueTuple<string, string> tuple => tuple.ToDictionary(),
+                Tuple<string, string> tuple => tuple.ToDictionary(),
+                Dictionary<string, string> dictionary => dictionary,
+                _ => new()
+            };
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ICommando AddCommand(string command)
+        {
+            var commando = shell.FindCommand();
+            commando.AddCommand(command);
+            return commando;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ICommando AddCommands(IEnumerable<string> commands)
+        {
+            var commando = shell.FindCommand();
+            commando.AddCommands(commands);
+            return commando;
         }
     }
 }

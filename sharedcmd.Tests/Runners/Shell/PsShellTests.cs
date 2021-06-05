@@ -21,7 +21,7 @@ namespace sharedcmd.Tests.Runners.Shell
             A.CallTo(() => shell.Run(An<IRunOptions>.That.IsNotNull()))
              .Returns("result");
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new PsCommando(shell));
             powershell = new Powershell(shell);
         }

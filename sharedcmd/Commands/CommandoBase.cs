@@ -46,12 +46,10 @@ namespace sharedcmd.Commands
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCommands(params string[] sequence)
         {
-            if (sequence is string[] { Length: > 0})
-            {
-                commands.AddRange(sequence);
-            }
+            AddCommands(sequence.AsEnumerable());
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -73,10 +71,16 @@ namespace sharedcmd.Commands
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
-            var parsedArguments = binder.ParseOptions<T>(args);
-            AddCommands(parsedArguments.Select(a => a.ToString()));
+            AddUserCommands(binder, args);
             result = shell.Run(new RunOptions(this));
             return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void AddUserCommands(InvokeBinder binder, object[] args)
+        {
+            var parsedArguments = binder.ParseOptions<T>(args);
+            AddCommands(parsedArguments.Select(a => a.ToString()));
         }
     }
 }

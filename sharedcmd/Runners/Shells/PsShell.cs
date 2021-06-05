@@ -8,7 +8,7 @@ namespace sharedcmd.Runners.Shells
     /// </summary>
     public class PsShell : ShellBase<CommandOption>
     {
-        public override ICommando GiveOrder()
+        public override ICommando FindCommand()
         {
             return new PsCommando(this);
         }

@@ -21,7 +21,7 @@ namespace sharedcmd.Runners
         /// <returns>
         /// The string version of an argument.
         /// </returns>
-        string BuildArgument(T argument);
+        string BuildOption(T argument);
 
         /// <summary>
         /// Gives an order to the cli.
@@ -29,6 +29,6 @@ namespace sharedcmd.Runners
         /// <returns>
         /// The command to be stored and executed.
         /// </returns>
-        ICommando GiveOrder();
+        ICommando FindCommand();
     }
 }

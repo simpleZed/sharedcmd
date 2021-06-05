@@ -23,8 +23,7 @@ namespace sharedcmd.Runners
         /// </param>
         public RunOptions(ICommando commando)
         {
-            Command = commando.Command;
-            Arguments = commando.Arguments;
+            (Command, Arguments) = (commando.Command, commando.Arguments);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

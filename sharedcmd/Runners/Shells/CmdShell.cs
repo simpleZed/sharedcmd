@@ -8,7 +8,7 @@ namespace sharedcmd.Runners.Shells
     /// </summary>
     public class CmdShell : ShellBase<CommandOption>
     {
-        public override ICommando GiveOrder()
+        public override ICommando FindCommand()
         {
             return new CmdCommando(this);
         }

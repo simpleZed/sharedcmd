@@ -2,7 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<LangVersion>preview</LangVersion> <!--C# 8.0 with some 9.0 early features-->
+		<LangVersion>preview</LangVersion>
+		<!--C# 8.0 with some 9.0 early features-->
 		<Nullable>enable</Nullable>
 		<Authors>simpleRick</Authors>
 		<Description>Heavily inspired by the cmd C# library, you can use bash, powershell, cmd or write your own cli abstraction.</Description>
@@ -15,10 +16,10 @@
 		<FileVersion>1.0.1.0</FileVersion>
 		<Version>1.0.1</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageLicenseFile>https:\github.com\simpleZed\sharedcmd\blob\master\LICENSE.md</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageIcon>command_prompt.png</PackageIcon>
 		<ApplicationIcon>command_prompt.ico</ApplicationIcon>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,14 +32,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\..\..\Downloads\command_prompt.png">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
-	  <None Include="Assets\LICENSE.md">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
+		<None Include="Assets\command_prompt.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="Assets\LICENSE.md">
+		  <Pack>True</Pack>
+		  <PackagePath></PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>

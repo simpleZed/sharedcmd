@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 using sharedcmd.Commands;
 using sharedcmd.Extensions;
@@ -22,23 +23,20 @@ namespace sharedcmd.Runners.Shells
             EnvironmentVariables = new Dictionary<string, string>();
         }
 
-        public virtual string BuildArgument(T argument)
+        public virtual string BuildOption(T option)
         {
-            return argument.ToString();
+            return option.ToString();
         }
 
-        public abstract ICommando GiveOrder();
+        public abstract ICommando FindCommand();
 
         public virtual string Run(IRunOptions options)
         {
-            var process = CreateProcess(options);
-            process.PopulateEnvironment(EnvironmentVariables!);
-            process.Start();
-            var result = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            return result;
+            var process = StartProcess(options);
+            return ReadFromProcess(process);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Process CreateProcess(IRunOptions options)
         {
             return new()
@@ -51,6 +49,23 @@ namespace sharedcmd.Runners.Shells
                     RedirectStandardOutput = true
                 }
             };
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private Process StartProcess(IRunOptions options)
+        {
+            var process = CreateProcess(options);
+            process.PopulateEnvironment(EnvironmentVariables!);
+            process.Start();
+            return process;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string ReadFromProcess(Process process)
+        {
+            var result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return result;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace sharedcmd.Tests
         public void Setup()
         {
             shell = A.Fake<CmdShell>();
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
             cmd = new Cmd(shell);
         }
@@ -60,14 +60,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             dynamic ls = cmd.ls;
             Assert.NotNull(ls);
             Assert.IsInstanceOf<CmdCommando>(ls);
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             dynamic dir = cmd.dir;
@@ -78,14 +78,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmdIndex()
         {
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             dynamic ls = cmd["git"];
             Assert.NotNull(ls);
             Assert.IsInstanceOf<CmdCommando>(ls);
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             dynamic dir = cmd["dir"];
@@ -96,14 +96,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             cmd.git();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c git")))
              .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             cmd.dir();
@@ -114,14 +114,14 @@ namespace sharedcmd.Tests
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmdIndex()
         {
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             cmd["git"]();
             A.CallTo(() => shell.Run(An<IRunOptions>.That.Matches(r => r.Arguments == "/c git")))
              .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => shell.GiveOrder())
+            A.CallTo(() => shell.FindCommand())
              .Returns(new CmdCommando(shell));
 
             cmd["dir"]();

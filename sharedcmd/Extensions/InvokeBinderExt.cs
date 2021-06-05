@@ -14,15 +14,16 @@ namespace sharedcmd.Extensions
         public static IEnumerable<T> ParseOptions<T>(this InvokeBinder binder, object[] args)
             where T : CommandOption, new()
         {
-            var (names, argsCount, namesCount) = binder.FetchInfo();
-            var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);
-            return allNames.Zip(args, (f, p) => CommandOptionFactory.Of<T>(p.ToString(), f))
-                           .OrderBy(a => a.Prefix);
+            var (names, argsCount, namesCount) = binder.FetchOptions();
+            return Enumerable.Repeat<string>(null!, argsCount - namesCount)
+                             .Concat(names)
+                             .Zip(args, (f, p) => CommandOptionFactory.Of<T>(p.ToString(), f))
+                             .OrderBy(a => a.Prefix);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (IReadOnlyCollection<string> names, int argsCount, int namesCount)
-            FetchInfo(this InvokeBinder binder)
+            FetchOptions(this InvokeBinder binder)
         {
             var (names, count) = (binder.CallInfo.ArgumentNames, binder.CallInfo.ArgumentCount);
             return (names, count, names.Count);

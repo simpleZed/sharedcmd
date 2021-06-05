@@ -26,8 +26,7 @@ namespace sharedcmd.Runners.Options
 
         public override string ToString()
         {
-            var prefix = BuildPrefix();
-            return (prefix, Flag) switch
+            return (BuildPrefix(), Flag) switch
             {
                 (var x, null) => x,
                 (null, var y) => y,
