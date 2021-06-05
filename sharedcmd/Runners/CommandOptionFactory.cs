@@ -1,11 +1,11 @@
-﻿using sharedcmd.Runners.Arguments;
+﻿using sharedcmd.Runners.Options;
 
 namespace sharedcmd.Runners
 {
     /// <summary>
     /// Factory methods for the <see cref="CommandOption"/> class and it's derived types.
     /// </summary>
-    public static class ArgumentFactory
+    public static class CommandOptionFactory
     {
         /// <summary>
         /// Generates a new <see cref="CommandOption"/> instance.

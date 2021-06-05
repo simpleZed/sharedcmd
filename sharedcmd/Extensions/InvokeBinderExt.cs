@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 
 using sharedcmd.Runners;
-using sharedcmd.Runners.Arguments;
+using sharedcmd.Runners.Options;
 
 namespace sharedcmd.Extensions
 {
@@ -16,7 +16,7 @@ namespace sharedcmd.Extensions
         {
             var (names, argsCount, namesCount) = binder.FetchInfo();
             var allNames = Enumerable.Repeat<string>(null!, argsCount - namesCount).Concat(names);
-            return allNames.Zip(args, (f, p) => ArgumentFactory.Of<T>(p.ToString(), f))
+            return allNames.Zip(args, (f, p) => CommandOptionFactory.Of<T>(p.ToString(), f))
                            .OrderBy(a => a.Prefix);
         }
 

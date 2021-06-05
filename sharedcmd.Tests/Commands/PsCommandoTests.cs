@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 using sharedcmd.Commands;
 using sharedcmd.Runners;
-using sharedcmd.Runners.Arguments;
+using sharedcmd.Runners.Options;
 using sharedcmd.Runners.Shells;
 
 namespace sharedcmd.Tests.Commands

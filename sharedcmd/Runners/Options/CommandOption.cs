@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace sharedcmd.Runners.Arguments
+namespace sharedcmd.Runners.Options
 {
     /// <summary>
     /// Represents a class that knows how to parse command options.
@@ -27,12 +27,11 @@ namespace sharedcmd.Runners.Arguments
         public override string ToString()
         {
             var prefix = BuildPrefix();
-            return (prefix, Flag) switch 
+            return (prefix, Flag) switch
             {
-                (null, null) => null!,
-                (var x, var y) => x + y,
                 (var x, null) => x,
-                (null, var y) => y
+                (null, var y) => y,
+                (var x, var y) => x + y,
             };
         }
 
