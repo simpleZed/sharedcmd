@@ -1,4 +1,4 @@
-﻿namespace sharedcmd.Runners.Arguments
+﻿namespace sharedcmd.Runners.Options
 {
     /// <summary>
     /// Abstracts a smart contract that whoever
