@@ -16,7 +16,7 @@ namespace sharedcmd.Commands
         /// </param>
         public CmdCommando(ShellBase<CommandOption> shell) : base(shell)
         {
-            AddCommands("cmd", "/c");
+            Manager.AddCommands("cmd", "/c");
         }
     }
 }

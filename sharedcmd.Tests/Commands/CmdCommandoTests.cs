@@ -19,7 +19,7 @@ namespace sharedcmd.Tests.Commands
         public void SetUp()
         {
             shell = A.Fake<CmdShell>();
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new CmdCommando(shell));
             cmd = new Cmd(shell);
         }

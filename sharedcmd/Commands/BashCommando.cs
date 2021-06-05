@@ -16,7 +16,7 @@ namespace sharedcmd.Commands
         /// </param>
         public BashCommando(ShellBase<CommandOption> shell) : base(shell)
         {
-            AddCommands("bash", "-c");
+            Manager.AddCommands("bash", "-c");
         }
     }
 }

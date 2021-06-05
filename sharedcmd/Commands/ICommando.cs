@@ -19,17 +19,8 @@ namespace sharedcmd.Commands
         string? Arguments { get; }
 
         /// <summary>
-        /// Adds a new command
+        /// Manages the commands on CLI.
         /// </summary>
-        /// <param name="command"></param>
-        void AddCommand(string command);
-
-        /// <summary>
-        /// Adds a new sequence of command.
-        /// </summary>
-        /// <param name="sequence">
-        /// The sequence to add.
-        /// </param>
-        void AddCommands(IEnumerable<string> sequence);
+        IManageCommand Manager { get; }
     }
 }

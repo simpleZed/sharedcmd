@@ -8,7 +8,7 @@ namespace sharedcmd.Runners.Shells
     /// </summary>
     public class BashShell : ShellBase<CommandOption>
     {
-        public override ICommando FindCommand()
+        public override ICommando GenerateCommand()
         {
             return new BashCommando(this);
         }

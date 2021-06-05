@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
+﻿using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -18,44 +17,25 @@ namespace sharedcmd.Commands
     /// </typeparam>
     public abstract class CommandoBase<T> : DynamicObject, ICommando where T : CommandOption, new()
     {
-        protected readonly List<string> commands = new();
-
         private readonly ShellBase<T> shell;
 
-        public string? Command => commands.FirstOrDefault();
+        public IManageCommand Manager { get; }
 
-        public string? Arguments => commands.Skip(1)
-                                            .Aggregate((x, y) => $"{x} {y}");
+        public string? Command => Manager.Commands.FirstOrDefault();
 
-        protected CommandoBase(ShellBase<T> shell)
+        public string? Arguments => Manager.Commands.Skip(1)
+                                                    .Aggregate((x, y) => $"{x} {y}");
+
+        protected CommandoBase(ShellBase<T> shell, IManageCommand manager = null!)
         {
             this.shell = shell;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCommand(string command)
-        {
-            commands.Add(command);
-        }
-
-        public void AddCommands(IEnumerable<string> sequence)
-        {
-            if (sequence.Any())
-            {
-                commands.AddRange(sequence);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCommands(params string[] sequence)
-        {
-            AddCommands(sequence.AsEnumerable());
+            Manager = manager ?? new CommandManager();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            AddCommand(binder.Name);
+            Manager.AddCommand(binder.Name);
             result = this;
             return true;
         }
@@ -63,7 +43,7 @@ namespace sharedcmd.Commands
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
-            AddCommands(indexes.OfType<string>());
+            Manager.AddCommands(indexes.OfType<string>());
             result = this;
             return true;
         }
@@ -71,16 +51,16 @@ namespace sharedcmd.Commands
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
-            AddUserCommands(binder, args);
+            AddBinding(binder, args);
             result = shell.Run(new RunOptions(this));
             return true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void AddUserCommands(InvokeBinder binder, object[] args)
+        private void AddBinding(InvokeBinder binder, object[] args)
         {
             var parsedArguments = binder.ParseOptions<T>(args);
-            AddCommands(parsedArguments.Select(a => a.ToString()));
+            Manager.AddCommands(parsedArguments.Select(a => a.ToString()));
         }
     }
 }

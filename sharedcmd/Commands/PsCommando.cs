@@ -16,7 +16,7 @@ namespace sharedcmd.Commands
         /// </param>
         public PsCommando(ShellBase<CommandOption> shell) : base(shell)
         {
-            AddCommand("powershell");
+            Manager.AddCommand("powershell");
         }
     }
 }

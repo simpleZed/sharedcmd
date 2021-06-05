@@ -12,9 +12,9 @@
 		<RepositoryUrl>https://github.com/simpleZed/sharedcmd</RepositoryUrl>
 		<RepositoryType>Public</RepositoryType>
 		<PackageTags>powershell, bash, cmd, cli, shell, dlr, dynamic language runtime</PackageTags>
-		<AssemblyVersion>1.0.1.0</AssemblyVersion>
-		<FileVersion>1.0.1.0</FileVersion>
-		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.2.0</AssemblyVersion>
+		<FileVersion>1.0.2.0</FileVersion>
+		<Version>1.0.2</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageIcon>command_prompt.png</PackageIcon>

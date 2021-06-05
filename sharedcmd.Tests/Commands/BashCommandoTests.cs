@@ -19,7 +19,7 @@ namespace sharedcmd.Tests.Commands
         public void SetUp()
         {
             shell = A.Fake<BashShell>();
-            A.CallTo(() => shell.FindCommand())
+            A.CallTo(() => shell.GenerateCommand())
              .Returns(new BashCommando(shell));
             bash = new Bash(shell);
         }

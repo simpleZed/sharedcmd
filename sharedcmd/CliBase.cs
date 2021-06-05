@@ -34,7 +34,7 @@ namespace sharedcmd
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = AddCommand(binder.Name);
+            result = BindTo(binder.Name);
             return true;
         }
 
@@ -42,7 +42,7 @@ namespace sharedcmd
         {
             var commands = indexes.OfType<string>()
                                   .Where(s => !string.IsNullOrWhiteSpace(s));
-            result = AddCommands(commands);
+            result = BindTo(commands);
             return true;
         }
 
@@ -70,18 +70,18 @@ namespace sharedcmd
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ICommando AddCommand(string command)
+        public ICommando BindTo(string command)
         {
-            var commando = shell.FindCommand();
-            commando.AddCommand(command);
+            var commando = shell.GenerateCommand();
+            commando.Manager.AddCommand(command);
             return commando;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ICommando AddCommands(IEnumerable<string> commands)
+        public ICommando BindTo(IEnumerable<string> commands)
         {
-            var commando = shell.FindCommand();
-            commando.AddCommands(commands);
+            var commando = shell.GenerateCommand();
+            commando.Manager.AddCommands(commands);
             return commando;
         }
     }
