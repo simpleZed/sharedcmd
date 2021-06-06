@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sharedcmd.Playground", "sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sharedcmd.Tests", "sharedcmd.Tests\sharedcmd.Tests.csproj", "{8436AA5E-CCE8-4EBF-9F0C-2DCE8CD5D8C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sharedcmd.Benchmarks", "sharedcmd.Benchmarks\sharedcmd.Benchmarks.csproj", "{193C2151-723D-4E13-A542-8395279A3343}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{8436AA5E-CCE8-4EBF-9F0C-2DCE8CD5D8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8436AA5E-CCE8-4EBF-9F0C-2DCE8CD5D8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8436AA5E-CCE8-4EBF-9F0C-2DCE8CD5D8C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{193C2151-723D-4E13-A542-8395279A3343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{193C2151-723D-4E13-A542-8395279A3343}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{193C2151-723D-4E13-A542-8395279A3343}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{193C2151-723D-4E13-A542-8395279A3343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
